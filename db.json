@@ -1,0 +1,63 @@
+{
+  "posts": [
+    {
+      "name": "dfdfsd",
+      "details": "dsdfsdf",
+      "mail": "fsdsdfsdfsd",
+      "Mob": "4544545456456",
+      "id": 1
+    },
+    {
+      "name": "gjvgjg",
+      "details": "fgjfgjfgj",
+      "mail": "fgjfgjfgjfgj",
+      "Mob": "654545645645645",
+      "id": 2
+    },
+    {
+      "name": "Manju",
+      "details": "Muringoor",
+      "mail": "SLDIYJgvb ",
+      "Mob": "5384731528",
+      "id": 3
+    },
+    {
+      "name": "pwo8ytrglkjhlkfj",
+      "details": "huiyhergkjbhk",
+      "mail": "jhalkuiyhfrkjh.kj",
+      "Mob": "528787435",
+      "id": 4
+    },
+    {
+      "name": "Meee",
+      "details": "Kokkd",
+      "mail": "Mee@gmail.com",
+      "Mob": "3587431",
+      "id": 5
+    },
+    {
+      "name": "bobyZg DFS",
+      "details": "Konoordfv",
+      "mail": "Dilshad@google.com",
+      "Mob": "+91 970258743154102",
+      "id": 7
+    },
+    {
+      "id": 8,
+      "name": "chandu",
+      "details": "Konoor",
+      "mail": "Dilshad@google.com",
+      "Mob": "+91 9702587431"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
