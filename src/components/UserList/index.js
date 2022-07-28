@@ -7,23 +7,30 @@ import style from './style';
 import image from '../../constants/images';
 import Buttn from '../ButtonComponent';
 
-const index = ({item, didPress}) => {
-  // const deleteTask = item => {
-  //   const filterData = listArray.filter(item => {
-  //     return item?.id != item?.id;
-  //   });
-  //   setListArray(item);
-  // };
-
-  // console.log('++++++=====', item);
+const index = ({item, didPress, onDeletePressed}) => {
   const navigation = useNavigation();
 
+  //Delete Alert
+  const deleteAlert = () => {
+    Alert.alert('Delete', 'Are you sure you want to delete?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => onDeletePressed(item)},
+    ]);
+  };
   return (
     <View style={style.container}>
       <View style={style.profilePic}>
         <Image
-          source={image.UserMenu}
-          style={{width: 50, height: 50, tintColor: '#acadac'}}
+          source={{uri: item.Image_uri}}
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 50,
+          }}
         />
       </View>
       <View style={style.details}>
@@ -34,7 +41,7 @@ const index = ({item, didPress}) => {
       </View>
       <View style={style.Buttn}>
         <Buttn Name={'Edit'} didTapon={didPress} />
-        <Buttn Name={'Delete'} />
+        <Buttn Name={'Delete'} didTapon={item => deleteAlert()} />
       </View>
     </View>
   );

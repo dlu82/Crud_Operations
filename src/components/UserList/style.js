@@ -10,9 +10,9 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   profilePic: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     borderWidth: 1,
     borderColor: 'grey',
     alignItems: 'center',

@@ -43,17 +43,22 @@ const cameraOptions = [
 ];
 
 const index = ({item, route}) => {
-  console.log('rooot===>', route?.params?.params.name);
+  // console.log('rooot===>', route?.params?.params.name);
   const stdData = route?.params?.params;
+
   const navigation = useNavigation();
+
+  //useStates
   // console.log('dgfkaghjv=====>', item);
   const [modalVisible, setModalVisible] = useState(false);
-  const [isImage, SetImage] = useState('');
+  const [isImage, SetImage] = useState(
+    route?.params?.params.Image_uri ? route?.params?.params.Image_uri : '',
+  );
   const [stdName, setstdName] = useState(route?.params?.params.name);
   const [stddetails, setstdDetails] = useState(route?.params?.params.details);
   const [stdmail, setstdMail] = useState(route?.params?.params.mail);
   const [stdMob, setstdMob] = useState(route?.params?.params.Mob);
-
+  //Camera Permission & library function
   const onGallaryUpload = () => {
     launchImageLibrary(cameraOptions, response => {
       console.log('RESPONSE===>', response);
@@ -65,7 +70,7 @@ const index = ({item, route}) => {
     });
   };
   const onPhotoUpload = async () => {
-    console.log('RESPONSE===>');
+    // console.log('RESPONSE===>');
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -100,7 +105,8 @@ const index = ({item, route}) => {
     }
     // const granted = await PermissionsAndroid.request()
   };
-  //Update function
+
+  //Update function API calling
   const onUpdate = async () => {
     const payload = {
       name: stdName,
@@ -108,9 +114,10 @@ const index = ({item, route}) => {
       mail: stdmail,
       Mob: stdMob,
       id: route.params.params.id,
+      Image_uri: isImage,
     };
 
-    console.log('kuyfg===', payload);
+    // console.log('kuyfg===', payload);
 
     try {
       const res = await fetch(
@@ -125,8 +132,8 @@ const index = ({item, route}) => {
         },
       );
       let response = await res.json();
-      console.log('CHECK ========>', response);
-      navigation.navigate('HomeScreen');
+      console.log('EDITING ========>', response);
+      navigation.navigate('HomeScreen', {ID: response?.id});
       // setApiDATA(response);
     } catch (error) {
       console.log(error, '===');
@@ -138,7 +145,7 @@ const index = ({item, route}) => {
       <StatusBar backgroundColor={'#B3E5FC'} />
       <Pressable style={style.profilePic} onPress={() => setModalVisible(true)}>
         <ImageBackground
-          source={{uri: isImage}}
+          source={{uri: isImage ? isImage : route?.params?.params.Image_uri}}
           style={{width: 100, height: 100}}
           imageStyle={{borderRadius: 50}}>
           <Image source={image.Camera} style={style.camera} />
@@ -149,8 +156,8 @@ const index = ({item, route}) => {
           style={style.input}
           placeholder="Name"
           keyboardType="qwerty"
-          onChangeText={text => setstdName(text)}
           placeholderTextColor={'#000'}
+          onChangeText={text => setstdName(text)}
           value={stdName}
         />
         <TextInput
