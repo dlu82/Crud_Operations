@@ -66,6 +66,7 @@ const index = ({route}) => {
       <Header />
       <ScrollView showsVerticalScrollIndicator={false}>
         <FlatList
+          contentContainerStyle={{marginBottom: 70}}
           data={apiData}
           renderItem={({item}) => (
             <UserList
