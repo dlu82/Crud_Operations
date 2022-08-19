@@ -12,10 +12,11 @@ import {
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Modal from 'react-native-modal';
 
+import {postApiFunction} from '../../store/slices/jsonSlice';
+import {useDispatch, useSelector} from 'react-redux';
 import image from '../../constants/images';
 import style from './style';
 
@@ -44,6 +45,7 @@ const cameraOptions = [
 
 const index = ({}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch({});
 
   //useStates..
   const [modalVisible, setModalVisible] = useState(false);
@@ -81,7 +83,7 @@ const index = ({}) => {
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log('You can use the camera');
         launchCamera(cameraOptions, response => {
-          console.log('RESPONSE===>', response);
+          // console.log('RESPONSE===>', response);
           if (!response.didCancel) {
             let data = response.assets[0];
             SetImage(data.uri);
@@ -111,23 +113,27 @@ const index = ({}) => {
     };
 
     // console.log('kuyfg===', payload);
-
-    try {
-      const res = await fetch('http://192.168.1.152:3000/posts', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-      let response = await res.json();
-      console.log('ADDING ========>', response);
-      navigation.navigate('HomeScreen', {ID: response?.id});
-      // setApiDATA(response);
-    } catch (error) {
-      console.log(error, '===');
+    const postResult = await dispatch(postApiFunction(payload));
+    if (postApiFunction.fulfilled.match(postResult)) {
+      navigation.navigate('HomeScreen', {ID: postResult?.payload.id});
+    } else {
     }
+    // try {
+    //   const res = await fetch('http://192.168.1.152:8000/posts', {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(payload),
+    //   });
+    //   let response = await res.json();
+    //   // console.log('ADDING ========>', response);
+    //   navigation.navigate('HomeScreen', {ID: response?.id});
+    //   // setApiDATA(response);
+    // } catch (error) {
+    //   console.log(error, '===');
+    // }
   };
 
   return (

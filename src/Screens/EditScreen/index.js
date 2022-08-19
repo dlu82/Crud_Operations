@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,12 +10,15 @@ import {
   PermissionsAndroid,
   Linking,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useNavigation} from '@react-navigation/native';
 import Modal from 'react-native-modal';
 
+import {putApiFunction} from '../../store/slices/jsonSlice';
+import {useDispatch, useSelector} from 'react-redux';
 import image from '../../constants/images';
 import style from './styles';
 
@@ -48,6 +51,8 @@ const index = ({item, route}) => {
 
   const navigation = useNavigation();
 
+  const dispatch = useDispatch({});
+
   //useStates
   // console.log('dgfkaghjv=====>', item);
   const [modalVisible, setModalVisible] = useState(false);
@@ -58,10 +63,11 @@ const index = ({item, route}) => {
   const [stddetails, setstdDetails] = useState(route?.params?.params.details);
   const [stdmail, setstdMail] = useState(route?.params?.params.mail);
   const [stdMob, setstdMob] = useState(route?.params?.params.Mob);
+
   //Camera Permission & library function
   const onGallaryUpload = () => {
     launchImageLibrary(cameraOptions, response => {
-      console.log('RESPONSE===>', response);
+      // sconsole.log('RESPONSE===>', response);
       if (!response.didCancel) {
         let data = response.assets[0];
         SetImage(data.uri);
@@ -116,79 +122,37 @@ const index = ({item, route}) => {
       id: route.params.params.id,
       Image_uri: isImage,
     };
-
-    // console.log('kuyfg===', payload);
-
-    try {
-      const res = await fetch(
-        'http://192.168.1.152:3000/posts/' + route?.params?.params?.id,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        },
-      );
-      let response = await res.json();
-      console.log('EDITING ========>', response);
-      navigation.navigate('HomeScreen', {ID: response?.id});
-      // setApiDATA(response);
-    } catch (error) {
-      console.log(error, '===');
+    const resultAction = await dispatch(putApiFunction(payload));
+    if (putApiFunction.fulfilled.match(resultAction)) {
+      navigation.navigate('HomeScreen', {ID: resultAction?.payload.id});
+      // console.log('ResponseREsuLT=====', resultAction);
+    } else {
     }
   };
 
+  // try {
+  //   const res = await fetch(
+  //     'http://192.168.1.152:8000/posts/' + route?.params?.params?.id,
+  //     {
+  //       method: 'PUT',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(payload),
+  //     },
+  //   );
+  //   let response = await res.json();
+  //   // console.log('EDITING ========>', response);
+  //   navigation.navigate('HomeScreen', {ID: response?.id});
+  //   // setApiDATA(response);
+  // } catch (error) {
+  //   console.log(error, '===');
+  // }
+  //};
+
   return (
     <View style={style.container}>
-      <StatusBar backgroundColor={'#B3E5FC'} />
-      <Pressable style={style.profilePic} onPress={() => setModalVisible(true)}>
-        <ImageBackground
-          source={{uri: isImage ? isImage : route?.params?.params.Image_uri}}
-          style={{width: 100, height: 100}}
-          imageStyle={{borderRadius: 50}}>
-          <Image source={image.Camera} style={style.camera} />
-        </ImageBackground>
-      </Pressable>
-      <View style={{top: 50}}>
-        <TextInput
-          style={style.input}
-          placeholder="Name"
-          keyboardType="qwerty"
-          placeholderTextColor={'#000'}
-          onChangeText={text => setstdName(text)}
-          value={stdName}
-        />
-        <TextInput
-          style={style.input}
-          placeholder={'Place'}
-          keyboardType="qwerty"
-          placeholderTextColor={'#000'}
-          onChangeText={text => setstdDetails(text)}
-          value={stddetails}
-        />
-        <TextInput
-          style={style.input}
-          placeholder="E-mail"
-          keyboardType="email-address"
-          placeholderTextColor={'#000'}
-          onChangeText={text => setstdMail(text)}
-          value={stdmail}
-        />
-        <TextInput
-          style={style.input}
-          placeholder="Mobile no."
-          keyboardType="numeric"
-          placeholderTextColor={'#000'}
-          onChangeText={text => setstdMob(text)}
-          value={stdMob}
-        />
-        <TouchableOpacity style={style.bttn} onPress={onUpdate}>
-          <Text style={{color: '#000'}}>Update</Text>
-        </TouchableOpacity>
-      </View>
-
       {/* Modal */}
 
       <Modal
@@ -223,6 +187,58 @@ const index = ({item, route}) => {
           </Pressable>
         </View>
       </Modal>
+      <StatusBar backgroundColor={'#B3E5FC'} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Pressable
+          style={style.profilePic}
+          onPress={() => setModalVisible(true)}>
+          <ImageBackground
+            source={{
+              uri: isImage ? isImage : route?.params?.params.Image_uri,
+            }}
+            style={{width: 100, height: 100}}
+            imageStyle={{borderRadius: 50}}>
+            <Image source={image.Camera} style={style.camera} />
+          </ImageBackground>
+        </Pressable>
+        <View style={{marginTop: 50}}>
+          <TextInput
+            style={style.input}
+            placeholder="Name"
+            keyboardType="qwerty"
+            placeholderTextColor={'#000'}
+            onChangeText={text => setstdName(text)}
+            value={stdName}
+          />
+          <TextInput
+            style={style.input}
+            placeholder={'Place'}
+            keyboardType="qwerty"
+            placeholderTextColor={'#000'}
+            onChangeText={text => setstdDetails(text)}
+            value={stddetails}
+          />
+          <TextInput
+            style={style.input}
+            placeholder="E-mail"
+            keyboardType="email-address"
+            placeholderTextColor={'#000'}
+            onChangeText={text => setstdMail(text)}
+            value={stdmail}
+          />
+          <TextInput
+            style={style.input}
+            placeholder="Mobile no."
+            keyboardType="numeric"
+            placeholderTextColor={'#000'}
+            onChangeText={text => setstdMob(text)}
+            value={stdMob}
+          />
+          <TouchableOpacity style={style.bttn} onPress={onUpdate}>
+            <Text style={{color: '#000'}}>Update</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };

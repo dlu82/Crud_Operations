@@ -1,56 +1,36 @@
 {
   "posts": [
     {
-      "name": "boby",
-      "details": "Konoor",
-      "mail": "Boby.test@google.com",
-      "Mob": "+91 9702587420",
-      "id": 7,
-      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_957374fa-018c-4da2-8802-f54be32666b4.jpg"
+      "name": "anu",
+      "details": "Kunnamngalam",
+      "mail": "Anu@testmial.com",
+      "Mob": "8523859760",
+      "id": 22,
+      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_891ffe75-3d6a-4f5d-8b63-121a99dd494b.jpg"
     },
     {
-      "name": "Alin",
-      "details": "Alappuzha",
-      "mail": "alinraj@Gmail",
-      "Mob": "+91 95969875",
-      "id": 9,
-      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_edb28202-d5ee-4795-86da-0976b5ed327d.jpg"
+      "name": "Dilshad",
+      "details": "Koduvally",
+      "mail": "ME@testmail.com",
+      "Mob": "8502368902",
+      "id": 25,
+      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_355b421f-d540-4557-bcca-e5cb381ae372.jpg"
     },
     {
-      "name": "veenaAkshay",
-      "details": "kottayam",
-      "mail": "veena@test.com",
-      "Mob": "989898989898",
-      "id": 13,
-      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_4daba0b9-5007-4bf1-8cd7-b7ce2a5cd31a.jpg"
+      "name": "Suraj",
+      "details": "Palakkad",
+      "mail": "Sura@testmail.in",
+      "Mob": "+91 2358961486",
+      "id": 26,
+      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_c06cb2d6-c701-4849-aaf3-70e951babea8.jpg"
     },
     {
-      "name": "dilu",
-      "details": "koratty",
-      "mail": "dilu@test.com",
-      "Mob": "54545458845658",
-      "id": 14,
-      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_55d9646f-70ef-411e-b834-3600009b5248.jpg"
-    },
-    {
-      "name": "shijesh",
-      "details": "university",
-      "mail": "shiju.test@gmail.com",
-      "Mob": "2145795364",
-      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_440b8c6b-2aad-4ca9-aa1d-916ab15cc68d.jpg",
-      "id": 15
-    },
-    {
-      "name": "Shakkeeb",
-      "details": "TEs",
-      "mail": "Test@mail",
-      "Mob": "+91 2056489012",
-      "id": 16,
-      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_374e5dc7-741c-43ce-a7f5-829aae5cb65c.jpg"
+      "name": "akshay",
+      "details": "kottaym",
+      "mail": "avj@testmal.com",
+      "Mob": "+91 5203148920",
+      "Image_uri": "file:///data/user/0/com.crud_operation/cache/rn_image_picker_lib_temp_4e9f6373-8247-46d7-b872-5c3777c318ad.jpg",
+      "id": 27
     }
-  ],
-  "comments": [],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

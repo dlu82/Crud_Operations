@@ -21,6 +21,7 @@ const index = ({item, didPress, onDeletePressed}) => {
       {text: 'OK', onPress: () => onDeletePressed(item)},
     ]);
   };
+
   return (
     <View style={style.container}>
       <View style={style.profilePic}>
